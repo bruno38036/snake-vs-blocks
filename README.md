@@ -1,7 +1,11 @@
 # SCC0504 — Substitute Project: Snake vs. Blocks
 
 **Technology:** Java Swing desktop application  
+<<<<<<< HEAD
 **Main class:** `br.usp.scc0504.snakeblocks.Main`
+=======
+**Main class:** `Main`
+>>>>>>> 82e0bf6d73c631e446cb72aa492f0234fc4f02e5
 
 This project implements a single-player arcade game inspired by *Snake vs. Blocks* using Java Swing. It was designed to cover the required SCC0504 learning outcomes: game loop design, object-oriented entity hierarchy, collision detection, score management, game states, and local persistence.
 
@@ -26,7 +30,11 @@ This project implements a single-player arcade game inspired by *Snake vs. Block
 ```text
 snake-vs-blocks/
 ├── README.md
+<<<<<<< HEAD
 ├── src/main/java/br/usp/scc0504/snakeblocks/
+=======
+├── src/
+>>>>>>> 82e0bf6d73c631e446cb72aa492f0234fc4f02e5
 │   ├── Main.java
 │   ├── GameFrame.java
 │   ├── GamePanel.java
@@ -49,8 +57,13 @@ snake-vs-blocks/
 From the project root:
 
 ```bash
+<<<<<<< HEAD
 javac -d out src/main/java/br/usp/scc0504/snakeblocks/*.java
 java -cp out br.usp.scc0504.snakeblocks.Main
+=======
+javac -d out src/*.java
+java Main
+>>>>>>> 82e0bf6d73c631e446cb72aa492f0234fc4f02e5
 ```
 
 ## Controls
