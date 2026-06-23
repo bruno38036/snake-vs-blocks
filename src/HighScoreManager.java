@@ -11,14 +11,17 @@ import java.util.Collections;
 import java.util.List;
 
 public class HighScoreManager {
+    // Arquivo onde grava os high scores (no diretório do projeto)
     private final File scoreFile;
 
     public HighScoreManager() {
         this.scoreFile = new File(GameConfig.HIGH_SCORE_FILE);
     }
 
+    // Carrega os scores do arquivo
     public List<Integer> loadScores() {
         List<Integer> scores = new ArrayList<>();
+        // Se o arquivo não existe ainda, retorna lista vazia
         if (!scoreFile.exists()) {
             return scores;
         }
@@ -29,24 +32,28 @@ public class HighScoreManager {
                 try {
                     scores.add(Integer.parseInt(line.trim()));
                 } catch (NumberFormatException ignored) {
-                    // Ignore invalid lines to keep persistence robust.
+                    // Se uma linha tá bugada, só ignora e continua
+                    // melhor do que bugar o jogo todo
                 }
             }
         } catch (IOException ignored) {
-            // If loading fails, the game still works with an empty ranking.
+            // Se não conseguir ler, jogo continua normal
+            // (tipo um fallback bem silencioso)
         }
 
-        sortAndTrim(scores);
+        sortAndTrim(scores); // organiza e pega só top 5
         return scores;
     }
 
+    // Salva um novo score
     public void saveScore(int score) {
-        List<Integer> scores = loadScores();
-        scores.add(score);
-        sortAndTrim(scores);
-        saveScores(scores);
+        List<Integer> scores = loadScores(); // pega os antigos
+        scores.add(score);                    // adiciona o novo
+        sortAndTrim(scores);                  // organiza
+        saveScores(scores);                   // grava tudo
     }
 
+    // Grava a lista de scores no arquivo
     private void saveScores(List<Integer> scores) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(scoreFile))) {
             for (Integer score : scores) {
@@ -54,14 +61,15 @@ public class HighScoreManager {
                 writer.newLine();
             }
         } catch (IOException ignored) {
-            // Persistence failure should not crash the game.
+            // Falha de escrita não devia crashar o jogo, ngl
         }
     }
 
+    // Ordena decrescente e tira tudo depois do 5º lugar
     private void sortAndTrim(List<Integer> scores) {
-        scores.sort(Collections.reverseOrder());
+        scores.sort(Collections.reverseOrder()); // maior primeiro
         while (scores.size() > 5) {
-            scores.remove(scores.size() - 1);
+            scores.remove(scores.size() - 1); // remove o último
         }
     }
 }
